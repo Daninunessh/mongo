@@ -1,5 +1,6 @@
 package com.estudos.mongo.resources;
 
+import com.estudos.mongo.domain.Post;
 import com.estudos.mongo.domain.User;
 import com.estudos.mongo.dto.UserDTO;
 import com.estudos.mongo.services.UserService;
@@ -59,5 +60,11 @@ public class UserResource {
         obj.setId(id);
         service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value="/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
